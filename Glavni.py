@@ -5,21 +5,29 @@ import csv
 vsi_igralci = []
 for l in range(11):
     igralci_l_tega_htmlja = Doloci_podatke.poberi_iz_html(f'stran{l+1}.html')
-    vsi_igralci += igralci_l_tega_htmlja
+    for igralec_l_tega in igralci_l_tega_htmlja:
+        dodaj = True
+        for ze_dodan in vsi_igralci:
+            if ze_dodan[0] == igralec_l_tega[0] and ze_dodan[1] == igralec_l_tega[1]:
+                dodaj = False
+        if dodaj:
+            vsi_igralci.append(igralec_l_tega)
+
+
 
 with open('podatki_igralci.csv', "w") as dat:
     pisatelj = csv.writer(dat)
     pisatelj.writerow(
         [
-            "ime",
-            "priimek",
-            "pozicija",
-            "tekme",
-            "minute",
-            "tocke",
-            "met",
-            "trojke",
-            "prosti_met",
+            "Ime",
+            "Priimek",
+            "Pozicija",
+            "Stevilo_tekem",
+            "Minute_na_tekmo",
+            "Tocke",
+            "Met",
+            "Trojke",
+            "Prosti_meti",
         ]
     )
     for igralec in vsi_igralci:
